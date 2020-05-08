@@ -1,14 +1,14 @@
-using Microsoft.AspNetCore.Mvc;
-using DatingApp.API.Data;
-using DatingApp.API.Models;
-using System.Threading.Tasks;
-using DatingApp.API.Dtos;
-using System.Security.Claims;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using Microsoft.Extensions.Configuration;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
+using DatingApp.API.Data;
+using DatingApp.API.Dtos;
+using DatingApp.API.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 
 namespace DatingApp.API.Controllers
 {
@@ -43,20 +43,19 @@ namespace DatingApp.API.Controllers
             return StatusCode(201);
         }
 
-
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
+
             var userFormRepo = await _repo.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
 
-            if(userFormRepo == null)
-            return Unauthorized();
+            if (userFormRepo == null)
+                return Unauthorized();
 
-            var claims = new []
-            {
-                new Claim(ClaimTypes.NameIdentifier, userFormRepo.Id.ToString()),
-                new Claim(ClaimTypes.Name, userFormRepo.Username)
-            };
+            var claims = new[] {
+                    new Claim (ClaimTypes.NameIdentifier, userFormRepo.Id.ToString ()),
+                    new Claim (ClaimTypes.Name, userFormRepo.Username)
+                };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
@@ -71,7 +70,8 @@ namespace DatingApp.API.Controllers
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(TokenDescriptor);
 
-            return Ok( new {token = tokenHandler.WriteToken(token)});
+            return Ok(new { token = tokenHandler.WriteToken(token) });
+
         }
     }
 }
