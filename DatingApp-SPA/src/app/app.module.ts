@@ -5,7 +5,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 import { AppComponent } from './app.component';
-import { ValueComponent } from './value/value.component';
 import { NavComponent } from './nav/nav.component';
 import {FormsModule} from '@angular/forms';
 import { AuthService } from './_services/auth.service';
@@ -28,6 +27,7 @@ import { ErrorInterceptorProvider } from './_services/error.interceptor';
       BsDropdownModule.forRoot()
    ],
    providers: [
+      AuthService,
       ErrorInterceptorProvider
    ],
    bootstrap: [
