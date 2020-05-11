@@ -4,7 +4,7 @@ namespace DatingApp.API.Dtos
 {
     public class UserForRegisterDto
     {
-        [Required]
+        [Required(ErrorMessage = "Please fill in Username")]
         public string Username {get; set;}
 
         [Required]
