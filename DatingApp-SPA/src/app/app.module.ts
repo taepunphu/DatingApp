@@ -16,7 +16,6 @@ import { ErrorInterceptorProvider } from './_services/error.interceptor';
 @NgModule({
    declarations: [
       AppComponent,
-      // ValueComponent,
       NavComponent,
       HomeComponent,
       RegisterComponent
